@@ -1,0 +1,382 @@
+\documentclass[12pt,a4paper]{article}
+
+% ========================== 包导入 ==========================
+\usepackage[UTF8]{ctex}                    % 中文支持
+\usepackage[margin=2.5cm]{geometry}        % 页面设置
+\usepackage{amsmath,amssymb,amsthm}        % 数学公式
+\usepackage{graphicx}                      % 图片插入
+\usepackage{float}                         % 图片位置控制
+\usepackage{subcaption}                    % 子图支持
+\usepackage{booktabs}                      % 表格美化
+\usepackage{array}                         % 表格增强
+\usepackage{enumitem}                      % 列表控制
+\usepackage{xcolor}                        % 颜色支持
+\usepackage{listings}                      % 代码块
+\usepackage{fancyhdr}                      % 页眉页脚
+\usepackage{hyperref}                      % 超链接
+\usepackage{tikz}                          % 绘图
+\usepackage{pgfplots}                      % 数据图表
+\usepackage{algorithm}                     % 算法环境
+\usepackage{algorithmic}                   % 算法伪代码
+\usepackage{bm}                           % 粗体数学符号
+\usepackage{url}                          % URL支持
+\usepackage{tabularx}                     % 自适应表格
+\usepackage{multirow}                     % 表格多行合并
+\usepackage{footnote}                     % 脚注增强
+
+% ========================== 可配置参数 ==========================
+% 在这里修改课程信息
+\newcommand{\coursename}{课程名称}         % 修改为你的课程名称
+\newcommand{\hwnum}{1}                     % 修改为作业编号
+\newcommand{\studentname}{姓名}            % 修改为你的姓名
+\newcommand{\studentid}{学号}              % 修改为你的学号
+\newcommand{\department}{院系}             % 修改为你的院系
+\newcommand{\semester}{2025年秋季学期}     % 修改为当前学期
+
+% ========================== 基础设置 ==========================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\coursename 作业\hwnum}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 行距设置
+\linespread{1.2}
+
+% 段落间距
+\setlength{\parskip}{0.5em}
+
+% ========================== 代码设置 ==========================
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    backgroundcolor=\color{gray!10},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    rulecolor=\color{black!30},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    escapeinside={\%*}{*)}
+}
+
+\lstdefinestyle{cppstyle}{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    backgroundcolor=\color{gray!10},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    rulecolor=\color{black!30},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+
+\lstdefinestyle{matlabstyle}{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    backgroundcolor=\color{gray!10},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    rulecolor=\color{black!30},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+
+\lstset{style=pythonstyle}
+
+% ========================== 数学设置 ==========================
+\numberwithin{equation}{section}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{definition}{定义}[section]
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注}[section]
+
+% ========================== 自定义命令 ==========================
+% 向量表示
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+% 矩阵表示
+\newcommand{\mat}[1]{\boldsymbol{#1}}
+% 答案框
+\newcommand{\answerbox}[1]{\fbox{\parbox{\textwidth}{#1}}}
+% 解答开始
+\newcommand{\solution}{\textbf{解：}}
+% 重点标记
+\newcommand{\important}[1]{\textcolor{red}{\textbf{#1}}}
+% 注意事项
+\newcommand{\note}[1]{\textcolor{orange}{\textbf{注：}#1}}
+% 提示
+\newcommand{\hint}[1]{\textcolor{blue}{\textbf{提示：}#1}}
+
+% ========================== 超链接设置 ==========================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    citecolor=green,
+    pdftitle={\coursename 作业\hwnum},
+    pdfauthor={\studentname},
+    pdfsubject={\coursename},
+}
+
+% ========================== 开始文档 ==========================
+\begin{document}
+
+% ========================== 标题页 ==========================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+
+    {\LARGE \textbf{北京大学}}\\[1cm]
+    {\Large \coursename}\\[1.5cm]
+
+    \rule{\linewidth}{0.5mm}\\[0.4cm]
+    {\huge \textbf{作业 \hwnum}}\\[0.4cm]
+    \rule{\linewidth}{0.5mm}\\[1.5cm]
+
+    \begin{minipage}{0.6\textwidth}
+        \begin{flushleft}
+            \large
+            \textbf{姓名：} \studentname\\
+            \textbf{学号：} \studentid\\
+            \textbf{院系：} \department\\
+            \textbf{课程：} \coursename\\
+            \textbf{学期：} \semester
+        \end{flushleft}
+    \end{minipage}
+
+    \vfill
+
+    {\large 提交日期：\today}
+
+\end{titlepage}
+
+% ========================== 目录（可选） ==========================
+% 如果不需要目录，注释掉下面两行
+\tableofcontents
+\newpage
+
+% ========================== 正文开始 ==========================
+
+\section{第一题}
+
+\subsection{题目描述}
+% 在这里写题目内容
+
+\subsection{解答}
+
+\solution
+
+\answerbox{
+% 在这里写你的解答
+}
+
+\section{第二题}
+
+\subsection{题目描述}
+% 在这里写题目内容
+
+\subsection{解答}
+
+\solution
+
+\answerbox{
+% 在这里写你的解答
+}
+
+% ========================== 示例内容 ==========================
+
+\section{示例：数学公式}
+
+行内公式：$E = mc^2$
+
+独立公式：
+\begin{equation}
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+\label{eq:gaussian}
+\end{equation}
+
+多行对齐公式：
+\begin{align}
+\nabla \times \vec{E} &= -\frac{\partial \vec{B}}{\partial t} \\
+\nabla \times \vec{B} &= \mu_0 \vec{J} + \mu_0 \epsilon_0 \frac{\partial \vec{E}}{\partial t}
+\end{align}
+
+矩阵：
+\begin{equation}
+\mat{A} = \begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{bmatrix}
+\end{equation}
+
+\section{示例：图片插入}
+
+% 单张图片
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example.jpg}
+    \caption{示例图片}
+    \label{fig:example}
+\end{figure}
+
+% 子图
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{image1.jpg}
+        \caption{子图1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{image2.jpg}
+        \caption{子图2}
+    \end{subfigure}
+    \caption{子图示例}
+    \label{fig:subfigs}
+\end{figure}
+
+\section{示例：代码块}
+
+Python代码：
+\begin{lstlisting}[style=pythonstyle, caption=Python示例]
+def fibonacci(n):
+    """计算斐波那契数列第n项"""
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# 测试
+for i in range(10):
+    print(f"F({i}) = {fibonacci(i)}")
+\end{lstlisting}
+
+C++代码：
+\begin{lstlisting}[style=cppstyle, caption=C++示例]
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+
+    for (const auto& num : nums) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+\end{lstlisting}
+
+\section{示例：表格}
+
+\begin{table}[H]
+\centering
+\caption{实验结果对比}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{方法} & \textbf{准确率} & \textbf{运行时间(s)} & \textbf{内存占用(MB)} \\
+\hline
+方法A & 95.2\% & 0.15 & 128 \\
+\hline
+方法B & 97.1\% & 0.23 & 156 \\
+\hline
+方法C & 96.8\% & 0.18 & 142 \\
+\hline
+\end{tabular}
+\label{tab:results}
+\end{table}
+
+\section{示例：列表}
+
+有序列表：
+\begin{enumerate}
+    \item 第一步：数据预处理
+    \item 第二步：特征提取
+    \item 第三步：模型训练
+    \item 第四步：结果评估
+\end{enumerate}
+
+无序列表：
+\begin{itemize}
+    \item 优点1：计算效率高
+    \item 优点2：内存占用少
+    \item 优点3：易于实现
+\end{itemize}
+
+\section{示例：定理环境}
+
+\begin{definition}
+设 $f: \mathbb{R} \to \mathbb{R}$ 是一个函数，如果对于任意 $\epsilon > 0$，存在 $\delta > 0$，使得当 $|x - a| < \delta$ 时，有 $|f(x) - f(a)| < \epsilon$，则称函数 $f$ 在点 $a$ 处连续。
+\end{definition}
+
+\begin{theorem}
+如果函数 $f$ 在闭区间 $[a,b]$ 上连续，则 $f$ 在 $[a,b]$ 上一致连续。
+\end{theorem}
+
+\begin{example}
+函数 $f(x) = x^2$ 在任意有界闭区间上都是一致连续的。
+\end{example}
+
+% ========================== 参考文献 ==========================
+\newpage
+\section*{参考文献}
+\addcontentsline{toc}{section}{参考文献}
+
+\begin{thebibliography}{99}
+\bibitem{ref1} 作者名. \textit{书名}. 出版社, 年份.
+\bibitem{ref2} 作者名. 文章标题. \textit{期刊名}, 卷号(期号): 页码, 年份.
+% 添加更多参考文献
+\end{thebibliography}
+
+% ========================== 附录（可选） ==========================
+\newpage
+\appendix
+\section{附录：完整代码}
+\label{app:code}
+
+% 如果有代码文件，使用以下命令导入
+% \lstinputlisting[caption=完整代码]{code_file.py}
+
+\section{附录：详细计算过程}
+\label{app:calc}
+
+% 在这里放置详细的计算过程
+
+\end{document}
