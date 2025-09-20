@@ -15,7 +15,9 @@
 - **专业排版**：符合学术规范
 
 ### 🎯 易于使用
-- **快速配置**：修改几个参数即可适配任何课程
+- **一键安装**：自动配置命令别名和快捷方式
+- **快速创建**：交互式作业创建，自动配置学生信息
+- **智能编译**：支持多种编译选项，自动处理临时文件
 - **标准化答题**：`\answerbox{}`统一答题格式
 - **丰富示例**：包含各种常用元素的使用示例
 - **自动编号**：公式、图表、章节自动编号和交叉引用
@@ -25,15 +27,58 @@
 - **多种样式**：支持不同的代码风格和颜色主题
 - **灵活布局**：可调整页面布局、字体大小等
 
+## 安装和设置
+
+### 一键安装（推荐）
+```bash
+cd ~/.latex_templates
+./install.sh
+```
+
+安装脚本会自动：
+- 为你的shell添加便捷命令别名
+- 创建桌面快捷方式（Linux）
+- 配置快速访问命令
+
+安装完成后，重启终端或运行 `source ~/.bashrc`（或对应的shell配置文件）。
+
+### 可用命令
+安装后你可以使用以下便捷命令：
+
+```bash
+# 快速创建作业（交互式）
+create-homework 课程名 作业号 [目标目录]
+
+# 编译LaTeX文件
+compile-latex 文件名.tex [选项]
+
+# 快速模板创建函数
+latex-template 课程名 作业号 [目标目录]
+
+# 快速编译函数
+latex-compile 文件名.tex [选项]
+
+# 查看帮助文档
+latex-help
+```
+
 ## 快速开始
 
-### 1. 复制模板
+### 方法一：使用便捷命令（推荐）
+```bash
+# 创建新作业（会自动提示输入学生信息）
+create-homework 计算机视觉 1
+
+# 或指定目标目录
+create-homework 数学分析 2 ~/Documents/homework/
+```
+
+### 方法二：手动复制模板
 ```bash
 cp ~/.latex_templates/universal_homework.tex your_homework.tex
 ```
 
-### 2. 配置基本信息
-在模板文件开头修改以下参数：
+然后手动配置基本信息：
 ```latex
 \newcommand{\coursename}{计算机视觉}      % 课程名称
 \newcommand{\hwnum}{1}                    % 作业编号
@@ -43,7 +88,30 @@ cp ~/.latex_templates/universal_homework.tex your_homework.tex
 \newcommand{\semester}{2025年秋季学期}    % 学期
 ```
 
-### 3. 编译
+### 编译选项
+
+#### 使用编译脚本（推荐）
+```bash
+# 基本编译
+compile-latex homework.tex
+
+# 编译前清理临时文件
+compile-latex homework.tex --clean
+
+# 编译后自动打开PDF
+compile-latex homework.tex --open
+
+# 包含参考文献处理
+compile-latex homework.tex --bibtex
+
+# 静默模式
+compile-latex homework.tex --quiet
+
+# 组合使用
+compile-latex homework.tex -c -o -b
+```
+
+#### 手动编译
 ```bash
 xelatex your_homework.tex
 xelatex your_homework.tex  # 第二次编译生成目录和交叉引用
@@ -228,7 +296,33 @@ int main() {
 - **编译器**：XeLaTeX（支持中文）
 - **编辑器**：推荐 TeXstudio、VS Code + LaTeX Workshop、或 Overleaf
 
+### 快速安装LaTeX环境
+```bash
+# Ubuntu/Debian
+sudo apt install texlive-full
+
+# 或最小安装
+sudo apt install texlive-xetex texlive-latex-extra texlive-fonts-recommended
+
+# macOS (需要先安装Homebrew)
+brew install mactex
+```
+
 ### 编译命令
+
+#### 使用脚本编译（推荐）
+```bash
+# 查看编译脚本帮助
+compile-latex --help
+
+# 基本编译
+compile-latex homework.tex
+
+# 高级选项
+compile-latex homework.tex --clean --open --bibtex
+```
+
+#### 手动编译
 ```bash
 # 标准编译
 xelatex homework.tex
@@ -278,6 +372,31 @@ sudo apt install texlive-full
 tlmgr install package_name
 ```
 
+#### 6. 命令别名不工作
+**原因**：未正确加载shell配置或shell类型不支持
+**解决**：
+```bash
+# 重新运行安装脚本
+./install.sh
+
+# 或手动重新加载配置
+source ~/.bashrc  # 或 ~/.zshrc
+```
+
+#### 7. 脚本权限错误
+**原因**：脚本文件没有执行权限
+**解决**：
+```bash
+chmod +x ~/.latex_templates/*.sh
+```
+
+#### 8. 编译脚本找不到tex文件
+**原因**：当前目录没有tex文件或文件名不正确
+**解决**：
+- 确保在包含tex文件的目录中运行
+- 使用 `compile-latex filename.tex` 指定文件名
+- 检查文件名是否正确
+
 ## 自定义和扩展
 
 ### 添加新的代码语言
@@ -301,11 +420,50 @@ tlmgr install package_name
 
 ## 模板维护
 
+### 文件结构
 该模板位于 `~/.latex_templates/` 目录下，包含：
-- `universal_homework.tex` - 主模板文件
-- `README.md` - 本说明文档
 
-建议定期备份和更新模板以获得更好的功能和修复。
+```
+~/.latex_templates/
+├── universal_homework.tex   # 主模板文件
+├── README.md               # 本说明文档
+├── install.sh              # 安装脚本（配置命令别名）
+├── create_homework.sh      # 快速创建作业脚本
+└── compile.sh              # 智能编译脚本
+```
+
+### 自动化工具功能
+
+#### `install.sh` - 安装脚本
+- 自动检测shell类型（bash/zsh/fish）
+- 添加便捷命令别名到对应配置文件
+- 创建桌面快捷方式（Linux系统）
+- 支持命令更新和重复安装
+
+#### `create_homework.sh` - 作业创建脚本
+- 交互式创建新作业文件
+- 自动配置学生信息（支持从git配置读取）
+- 智能文件命名：`课程名_作业号.tex`
+- 可选择立即编译和打开PDF
+- 支持自定义目标目录
+
+#### `compile.sh` - 编译脚本
+- 智能检测和选择tex文件
+- 支持多种编译选项（清理、静默、bibtex等）
+- 自动清理临时文件
+- 跨平台PDF打开支持
+- 详细的错误信息显示
+
+### 备份和更新
+建议定期备份模板目录：
+```bash
+# 备份整个模板目录
+cp -r ~/.latex_templates ~/.latex_templates.backup.$(date +%Y%m%d)
+
+# 或使用git管理（如果你fork了此项目）
+cd ~/.latex_templates
+git pull origin main
+```
 
 ## 联系和反馈
 
