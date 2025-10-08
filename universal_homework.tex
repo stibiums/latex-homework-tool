@@ -2,7 +2,7 @@
 
 % ========================== 包导入 ==========================
 \usepackage[UTF8]{ctex}                    % 中文支持
-\usepackage[margin=2.5cm]{geometry}        % 页面设置
+\usepackage[margin=2.2cm,top=2cm,bottom=2.5cm]{geometry}        % 页面设置
 \usepackage{amsmath,amssymb,amsthm}        % 数学公式
 \usepackage{graphicx}                      % 图片插入
 \usepackage{float}                         % 图片位置控制
@@ -23,98 +23,270 @@
 \usepackage{tabularx}                     % 自适应表格
 \usepackage{multirow}                     % 表格多行合并
 \usepackage{footnote}                     % 脚注增强
+\usepackage[most]{tcolorbox}              % 彩色文本框
+\usepackage{titlesec}                     % 标题格式化
+
+% ========================== 现代颜色定义 ==========================
+\definecolor{pkured}{RGB}{153,28,40}      % 北大红
+\definecolor{deepblue}{RGB}{0,73,144}     % 深蓝色
+\definecolor{lightgray}{RGB}{248,249,250} % 浅灰色
+\definecolor{codeback}{RGB}{247,247,247}  % 代码背景色
+\definecolor{codeframe}{RGB}{221,221,221} % 代码边框色
+\definecolor{accentblue}{RGB}{52,152,219} % 强调蓝色
 
 % ========================== 可配置参数 ==========================
 % 在这里修改课程信息
-\newcommand{\coursename}{课程名称}         % 修改为你的课程名称
-\newcommand{\hwnum}{1}                     % 修改为作业编号
-\newcommand{\studentname}{姓名}            % 修改为你的姓名
-\newcommand{\studentid}{学号}              % 修改为你的学号
-\newcommand{\department}{院系}             % 修改为你的院系
-\newcommand{\semester}{2025年秋季学期}     % 修改为当前学期
+\newcommand{\coursename}{课程名称}             % 修改为你的课程名称
+\newcommand{\hwnum}{1}                        % 修改为作业编号
+\newcommand{\studentname}{姓名}                % 修改为你的姓名
+\newcommand{\studentid}{学号}                  % 修改为你的学号
+\newcommand{\department}{院系}                 % 修改为你的院系
+\newcommand{\semester}{2025年秋季学期}         % 修改为当前学期
 
-% ========================== 基础设置 ==========================
+% ========================== 标题样式设置 ==========================
+\titleformat{\section}
+  {\Large\bfseries\color{pkured}}
+  {\thesection}{1em}{}
+  [\vspace{-0.5em}\rule{\textwidth}{0.5pt}]
+
+\titleformat{\subsection}
+  {\large\bfseries\color{deepblue}}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{accentblue}}
+  {\thesubsubsection}{1em}{}
+
+% ========================== 页眉页脚设置 ==========================
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\coursename 作业\hwnum}
-\fancyhead[R]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\color{deepblue}\small\coursename\ 作业\hwnum}
+\fancyhead[R]{\color{deepblue}\small 第 \thepage\ 页}
+\fancyfoot[C]{\color{gray}\rule{0.8\textwidth}{0.5pt}}
+\renewcommand{\headrulewidth}{1.2pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{pkured}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
 
 % 行距设置
-\linespread{1.2}
+\linespread{1.3}
 
 % 段落间距
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0em}
 
-% ========================== 代码设置 ==========================
-\lstdefinestyle{pythonstyle}{
-    language=Python,
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!60!black},
-    stringstyle=\color{red},
+% ========================== 现代代码设置 ==========================
+% 定义更多现代化颜色
+\definecolor{codeviolet}{RGB}{102,102,153}     % 紫色关键字
+\definecolor{codegreen}{RGB}{0,128,0}          % 绿色注释
+\definecolor{codeorange}{RGB}{255,102,0}       % 橙色字符串
+\definecolor{codepurple}{RGB}{153,0,153}       % 紫色数字
+\definecolor{codegray}{RGB}{128,128,128}       % 灰色行号
+\definecolor{codecyan}{RGB}{0,153,153}         % 青色预处理
+\definecolor{darkbackground}{RGB}{43,43,43}    % 深色背景
+\definecolor{lightbackground}{RGB}{250,250,250} % 浅色背景
+
+% VS Code 风格代码样式
+\lstdefinestyle{vscode}{
+    language=C++,
+    basicstyle=\ttfamily\small\color{black},
+    keywordstyle=\color{codeviolet}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codeorange},
+    numberstyle=\tiny\color{codegray},
+    directivestyle=\color{codecyan}\bfseries,
     numbers=left,
-    numberstyle=\tiny\color{gray},
     stepnumber=1,
-    numbersep=8pt,
-    backgroundcolor=\color{gray!10},
+    numbersep=15pt,
+    backgroundcolor=\color{lightbackground},
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
     frame=single,
-    rulecolor=\color{black!30},
+    frameround=tttt,
+    framesep=8pt,
+    framerule=0.8pt,
+    rulecolor=\color{accentblue!60},
     tabsize=4,
     captionpos=b,
     breaklines=true,
-    breakatwhitespace=false,
-    escapeinside={\%*}{*)}
+    breakatwhitespace=true,
+    xleftmargin=25pt,
+    xrightmargin=15pt,
+    aboveskip=20pt,
+    belowskip=20pt,
+    columns=flexible,
+    keepspaces=true,
+    escapeinside={(*@}{@*)},
 }
 
-\lstdefinestyle{cppstyle}{
+% GitHub 风格代码样式
+\lstdefinestyle{github}{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize\color{black},
+    keywordstyle=\color{deepblue}\bfseries,
+    commentstyle=\color{green!60!black}\itshape,
+    stringstyle=\color{red!70!black},
+    numberstyle=\scriptsize\color{gray!80},
+    numbers=left,
+    stepnumber=1,
+    numbersep=12pt,
+    backgroundcolor=\color{gray!3},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=tb,
+    framesep=5pt,
+    framerule=1pt,
+    rulecolor=\color{gray!30},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    xleftmargin=20pt,
+    xrightmargin=10pt,
+    aboveskip=15pt,
+    belowskip=15pt,
+    columns=flexible,
+    keepspaces=true,
+}
+
+% 极简风格代码样式
+\lstdefinestyle{minimal}{
     language=C++,
     basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!60!black},
-    stringstyle=\color{red},
+    keywordstyle=\color{pkured}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{accentblue},
+    numberstyle=\tiny\color{gray!50},
     numbers=left,
-    numberstyle=\tiny\color{gray},
     stepnumber=1,
-    numbersep=8pt,
-    backgroundcolor=\color{gray!10},
+    numbersep=10pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=leftline,
+    framesep=3pt,
+    framerule=2pt,
+    rulecolor=\color{pkured},
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    xleftmargin=15pt,
+    xrightmargin=5pt,
+    aboveskip=12pt,
+    belowskip=12pt,
+}
+
+% 设置默认样式为 VS Code 风格
+\lstset{style=vscode}
+
+% 提供样式切换命令
+\newcommand{\setcodestyle}[1]{
+    \lstset{style=#1}
+}
+
+% 多语言支持
+\lstdefinelanguage{Python}{
+    keywords={True, False, None, and, or, not, if, elif, else, for, while, in, def, class, return, yield, try, except, finally, with, as, import, from, lambda, pass, break, continue, global, nonlocal},
+    keywordstyle=\color{codeviolet}\bfseries,
+    ndkeywords={self, cls, __init__, __str__, __repr__, __len__},
+    ndkeywordstyle=\color{codecyan}\bfseries,
+    sensitive=true,
+    comment=[l]{\#},
+    string=[s]{"}{"},
+    stringstyle=\color{codeorange},
+    commentstyle=\color{codegreen}\itshape,
+    morestring=[s]{"""}{"""},
+    morestring=[s]{'''}{'''},
+}
+
+% 为不同语言提供特定样式
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small\color{black},
+    keywordstyle=\color{codeviolet}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codeorange},
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=15pt,
+    backgroundcolor=\color{lightbackground},
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
     frame=single,
-    rulecolor=\color{black!30},
+    frameround=tttt,
+    framesep=8pt,
+    framerule=0.8pt,
+    rulecolor=\color{accentblue!60},
     tabsize=4,
     captionpos=b,
     breaklines=true,
-    breakatwhitespace=false,
+    breakatwhitespace=true,
+    xleftmargin=25pt,
+    xrightmargin=15pt,
+    aboveskip=20pt,
+    belowskip=20pt,
 }
 
-\lstdefinestyle{matlabstyle}{
-    language=Matlab,
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!60!black},
-    stringstyle=\color{red},
+\lstdefinestyle{javastyle}{
+    language=Java,
+    basicstyle=\ttfamily\small\color{black},
+    keywordstyle=\color{codeviolet}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codeorange},
+    numberstyle=\tiny\color{codegray},
     numbers=left,
-    numberstyle=\tiny\color{gray},
     stepnumber=1,
-    numbersep=8pt,
-    backgroundcolor=\color{gray!10},
+    numbersep=15pt,
+    backgroundcolor=\color{lightbackground},
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
     frame=single,
-    rulecolor=\color{black!30},
+    frameround=tttt,
+    framesep=8pt,
+    framerule=0.8pt,
+    rulecolor=\color{accentblue!60},
     tabsize=4,
     captionpos=b,
     breaklines=true,
-    breakatwhitespace=false,
+    breakatwhitespace=true,
+    xleftmargin=25pt,
+    xrightmargin=15pt,
+    aboveskip=20pt,
+    belowskip=20pt,
 }
 
-\lstset{style=pythonstyle}
+% ========================== 自定义框架环境 ==========================
+\newtcolorbox{algorithmbox}[1]{
+  colback=lightgray,
+  colframe=deepblue,
+  fonttitle=\bfseries\color{white},
+  title=#1,
+  sharp corners,
+  boxrule=1pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt
+}
+
+\newtcolorbox{keypoints}{
+  colback=accentblue!5,
+  colframe=accentblue,
+  title=关键技术点,
+  fonttitle=\bfseries\color{white},
+  sharp corners,
+  boxrule=1pt,
+  left=8pt,
+  right=8pt,
+  top=8pt,
+  bottom=8pt
+}
 
 % ========================== 数学设置 ==========================
 \numberwithin{equation}{section}
@@ -131,63 +303,98 @@
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 % 矩阵表示
 \newcommand{\mat}[1]{\boldsymbol{#1}}
-% 答案框
-\newcommand{\answerbox}[1]{\fbox{\parbox{\textwidth}{#1}}}
-% 解答开始
-\newcommand{\solution}{\textbf{解：}}
+% 现代解答框
+\newenvironment{solution}
+{\begin{tcolorbox}[colback=pkured!5,colframe=pkured,title=算法思路,fonttitle=\bfseries\color{white}]}
+{\end{tcolorbox}}
 % 重点标记
-\newcommand{\important}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\important}[1]{\textcolor{pkured}{\textbf{#1}}}
 % 注意事项
-\newcommand{\note}[1]{\textcolor{orange}{\textbf{注：}#1}}
+\newcommand{\note}[1]{\begin{tcolorbox}[colback=orange!10,colframe=orange!80,title=注意,fonttitle=\bfseries\color{white},sharp corners]#1\end{tcolorbox}}
 % 提示
-\newcommand{\hint}[1]{\textcolor{blue}{\textbf{提示：}#1}}
+\newcommand{\hint}[1]{\begin{tcolorbox}[colback=accentblue!10,colframe=accentblue,title=提示,fonttitle=\bfseries\color{white},sharp corners]#1\end{tcolorbox}}
 
 % ========================== 超链接设置 ==========================
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,
-    urlcolor=cyan,
-    citecolor=green,
+    linkcolor=deepblue,
+    filecolor=pkured,
+    urlcolor=accentblue,
+    citecolor=deepblue,
     pdftitle={\coursename 作业\hwnum},
     pdfauthor={\studentname},
     pdfsubject={\coursename},
+    bookmarksnumbered=true,
+    bookmarksopen=true
 }
 
 % ========================== 开始文档 ==========================
 \begin{document}
 
-% ========================== 标题页 ==========================
+% ========================== 现代标题页 ==========================
 \begin{titlepage}
     \centering
-    \vspace*{2cm}
+    \vspace*{1cm}
 
-    {\LARGE \textbf{北京大学}}\\[1cm]
-    {\Large \coursename}\\[1.5cm]
+    % 顶部装饰线
+    {\color{pkured}\rule{\textwidth}{3pt}}
+    \vspace{0.5cm}
 
-    \rule{\linewidth}{0.5mm}\\[0.4cm]
-    {\huge \textbf{作业 \hwnum}}\\[0.4cm]
-    \rule{\linewidth}{0.5mm}\\[1.5cm]
+    % 学校名称
+    {\Huge\color{pkured}\textbf{北京大学}}\\[0.5cm]
+    {\Large\color{deepblue}\coursename}\\[1cm]
 
-    \begin{minipage}{0.6\textwidth}
-        \begin{flushleft}
-            \large
-            \textbf{姓名：} \studentname\\
-            \textbf{学号：} \studentid\\
-            \textbf{院系：} \department\\
-            \textbf{课程：} \coursename\\
-            \textbf{学期：} \semester
-        \end{flushleft}
-    \end{minipage}
+    % 主标题区域
+    \begin{tcolorbox}[
+        colback=pkured!5,
+        colframe=pkured,
+        width=0.9\textwidth,
+        arc=8pt,
+        boxrule=2pt,
+        title=作业报告,
+        fonttitle=\Large\bfseries\color{white},
+        center title
+    ]
+        \vspace{0.5cm}
+        \begin{center}
+            {\huge\color{pkured}\textbf{作业 \hwnum}}\\[0.3cm]
+            {\Large\color{deepblue}\textbf{标题副标题}}
+        \end{center}
+        \vspace{0.5cm}
+    \end{tcolorbox}
+
+    \vspace{1.5cm}
+
+    % 学生信息区域
+    \begin{tcolorbox}[
+        colback=lightgray,
+        colframe=deepblue,
+        width=0.7\textwidth,
+        arc=5pt,
+        boxrule=1pt
+    ]
+        \begin{center}
+            \renewcommand{\arraystretch}{1.8}
+            \begin{tabular}{rl}
+                \color{deepblue}\textbf{姓\phantom{学}名：} & \large\studentname \\
+                \color{deepblue}\textbf{学\phantom{学}号：} & \large\studentid \\
+                \color{deepblue}\textbf{院\phantom{学}系：} & \large\department \\
+                \color{deepblue}\textbf{课\phantom{学}程：} & \large\coursename \\
+                \color{deepblue}\textbf{学\phantom{学}期：} & \large\semester
+            \end{tabular}
+        \end{center}
+    \end{tcolorbox}
 
     \vfill
 
-    {\large 提交日期：\today}
+    % 底部装饰
+    {\color{pkured}\rule{\textwidth}{2pt}}\\[0.3cm]
+    {\large\color{deepblue} 提交日期：\today}\\[0.3cm]
+    {\color{pkured}\rule{\textwidth}{1pt}}
 
 \end{titlepage}
 
-% ========================== 目录（可选） ==========================
-% 如果不需要目录，注释掉下面两行
+% ========================== 目录 ==========================
 \tableofcontents
 \newpage
 
@@ -200,11 +407,81 @@
 
 \subsection{解答}
 
-\solution
+\begin{solution}
+在这里写你的算法思路和解题步骤。使用这个彩色框来突出你的核心思想和方法。
+\end{solution}
 
-\answerbox{
-% 在这里写你的解答
+% VS Code 风格代码 (默认)
+\begin{lstlisting}[style=vscode, caption=VS Code风格代码示例]
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+class DataProcessor {
+public:
+    void processData(const std::vector<int>& data) {
+        // 使用现代C++特性进行数据处理
+        std::for_each(data.begin(), data.end(), [](int value) {
+            std::cout << "Processing: " << value << std::endl;
+        });
+    }
+};
+
+int main() {
+    std::vector<int> data = {1, 2, 3, 4, 5};
+    DataProcessor processor;
+    processor.processData(data);
+    return 0;
 }
+\end{lstlisting}
+
+% GitHub 风格代码
+\begin{lstlisting}[style=github, caption=GitHub风格代码示例]
+def fibonacci(n):
+    """计算第n个斐波那契数"""
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# 测试函数
+for i in range(10):
+    print(f"fibonacci({i}) = {fibonacci(i)}")
+\end{lstlisting}
+
+% 极简风格代码
+\begin{lstlisting}[style=minimal, caption=极简风格代码示例]
+public class QuickSort {
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    private static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, high);
+        return i + 1;
+    }
+}
+\end{lstlisting}
+
+\begin{keypoints}
+\begin{itemize}[leftmargin=15pt]
+    \item \textbf{关键技术点1}：详细说明核心算法或技术要点
+    \item \textbf{关键技术点2}：解释重要的实现细节
+    \item \textbf{关键技术点3}：分析时间复杂度或空间复杂度
+\end{itemize}
+\end{keypoints}
 
 \section{第二题}
 
@@ -213,13 +490,31 @@
 
 \subsection{解答}
 
-\solution
+\begin{solution}
+在这里写你的算法思路和解题步骤。
+\end{solution}
 
-\answerbox{
-% 在这里写你的解答
-}
+% 插入图片示例
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{example.jpg}
+    \caption{示例图片}
+    \label{fig:example}
+\end{figure}
 
-% ========================== 示例内容 ==========================
+\section{代码样式使用说明}
+
+本模板提供三种现代化代码样式：
+
+\begin{itemize}[leftmargin=20pt]
+    \item \textbf{VS Code风格} (默认)：\texttt{style=vscode} - 现代IDE风格，圆角边框，浅色背景
+    \item \textbf{GitHub风格}：\texttt{style=github} - 简洁清爽，上下边框线
+    \item \textbf{极简风格}：\texttt{style=minimal} - 左侧红色标线，纯净简约
+\end{itemize}
+
+你可以使用 \texttt{\textbackslash setcodestyle\{样式名\}} 来全局切换代码样式，或在单个代码块中指定 \texttt{style=样式名}。
+
+支持多种编程语言：C++、Python、Java等，并提供语法高亮和关键字着色。
 
 \section{示例：数学公式}
 
@@ -246,64 +541,6 @@ a_{31} & a_{32} & a_{33}
 \end{bmatrix}
 \end{equation}
 
-\section{示例：图片插入}
-
-% 单张图片
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{example.jpg}
-    \caption{示例图片}
-    \label{fig:example}
-\end{figure}
-
-% 子图
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\textwidth]{image1.jpg}
-        \caption{子图1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.45\textwidth}
-        \includegraphics[width=\textwidth]{image2.jpg}
-        \caption{子图2}
-    \end{subfigure}
-    \caption{子图示例}
-    \label{fig:subfigs}
-\end{figure}
-
-\section{示例：代码块}
-
-Python代码：
-\begin{lstlisting}[style=pythonstyle, caption=Python示例]
-def fibonacci(n):
-    """计算斐波那契数列第n项"""
-    if n <= 1:
-        return n
-    return fibonacci(n-1) + fibonacci(n-2)
-
-# 测试
-for i in range(10):
-    print(f"F({i}) = {fibonacci(i)}")
-\end{lstlisting}
-
-C++代码：
-\begin{lstlisting}[style=cppstyle, caption=C++示例]
-#include <iostream>
-#include <vector>
-
-int main() {
-    std::vector<int> nums = {1, 2, 3, 4, 5};
-
-    for (const auto& num : nums) {
-        std::cout << num << " ";
-    }
-    std::cout << std::endl;
-
-    return 0;
-}
-\end{lstlisting}
-
 \section{示例：表格}
 
 \begin{table}[H]
@@ -323,60 +560,32 @@ int main() {
 \label{tab:results}
 \end{table}
 
-\section{示例：列表}
+\section{示例：特殊框架}
 
-有序列表：
-\begin{enumerate}
-    \item 第一步：数据预处理
-    \item 第二步：特征提取
-    \item 第三步：模型训练
-    \item 第四步：结果评估
+\note{这是一个注意事项的示例。用来提醒重要的注意点或者警告信息。}
+
+\hint{这是一个提示框的示例。用来给出有用的提示或者建议。}
+
+\begin{algorithmbox}{算法描述}
+这是一个算法描述框的示例。可以用来详细描述算法的步骤和流程。
+\end{algorithmbox}
+
+\section{总结}
+
+本次作业通过实践加深了对相关知识点的理解。主要收获包括：
+
+\begin{enumerate}[leftmargin=20pt]
+    \item 掌握了核心算法的实现原理
+    \item 学会了代码优化和性能分析
+    \item 提高了问题分析和解决能力
 \end{enumerate}
 
-无序列表：
-\begin{itemize}
-    \item 优点1：计算效率高
-    \item 优点2：内存占用少
-    \item 优点3：易于实现
-\end{itemize}
-
-\section{示例：定理环境}
-
-\begin{definition}
-设 $f: \mathbb{R} \to \mathbb{R}$ 是一个函数，如果对于任意 $\epsilon > 0$，存在 $\delta > 0$，使得当 $|x - a| < \delta$ 时，有 $|f(x) - f(a)| < \epsilon$，则称函数 $f$ 在点 $a$ 处连续。
-\end{definition}
-
-\begin{theorem}
-如果函数 $f$ 在闭区间 $[a,b]$ 上连续，则 $f$ 在 $[a,b]$ 上一致连续。
-\end{theorem}
-
-\begin{example}
-函数 $f(x) = x^2$ 在任意有界闭区间上都是一致连续的。
-\end{example}
-
 % ========================== 参考文献 ==========================
-\newpage
 \section*{参考文献}
-\addcontentsline{toc}{section}{参考文献}
 
-\begin{thebibliography}{99}
-\bibitem{ref1} 作者名. \textit{书名}. 出版社, 年份.
-\bibitem{ref2} 作者名. 文章标题. \textit{期刊名}, 卷号(期号): 页码, 年份.
-% 添加更多参考文献
-\end{thebibliography}
-
-% ========================== 附录（可选） ==========================
-\newpage
-\appendix
-\section{附录：完整代码}
-\label{app:code}
-
-% 如果有代码文件，使用以下命令导入
-% \lstinputlisting[caption=完整代码]{code_file.py}
-
-\section{附录：详细计算过程}
-\label{app:calc}
-
-% 在这里放置详细的计算过程
+\begin{enumerate}
+    \item 作者名. \textit{书名}. 出版社, 年份.
+    \item 作者名. 文章标题. \textit{期刊名}, 卷号(期号): 页码, 年份.
+\end{enumerate}
 
 \end{document}
